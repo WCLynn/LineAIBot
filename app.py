@@ -2,7 +2,7 @@ from flask import Flask, request, abort
 from linebot import LineBotApi, WebhookHandler
 from linebot.exceptions import InvalidSignatureError
 from linebot.models import MessageEvent, TextMessage, TextSendMessage
-
+import os
 # 你的 Channel Access Token 和 Channel Secret
 LINE_CHANNEL_ACCESS_TOKEN = os.getenv("ACCESS_TOKEN")
 LINE_CHANNEL_SECRET = os.getenv("SECRET")
