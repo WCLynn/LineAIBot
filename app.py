@@ -214,7 +214,7 @@ def get_history(user_id):
             cnt += 1
             user = record.get("User")
             model = record.get("Model")
-            lines.append(f'user_id: {user_id} | User: {user} | Model: {model}')
+            lines.append(f'User: {user} | Model: {model}')
     # Response 結果    
     if not lines or not Exist:
         return Response("使用者沒有歷史紀錄!", mimetype="text/plain")
