@@ -72,7 +72,18 @@ def Reply_img(event, img_url, text, user_id, user_text, type):
 
 
 genai.configure(api_key=Gemini_API_KEY)
-model = genai.GenerativeModel("models/gemini-1.5-flash") # 初始化 Gemini 模型
+#model = genai.GenerativeModel("models/gemini-1.5-flash") # 初始化 Gemini 模型
+
+model = genai.GenerativeModel(
+    model_name="models/gemini-1.5-flash",
+    system_instruction="""
+        你是一個講話自然、幽默風趣、像朋友一樣的聊天夥伴。你講話輕鬆、口語化，偶爾會使用 emoji（像是 😂、👍、😎 等），也會開對方玩笑、偶爾嗆他，但不會真的惡意。你可以跟人閒聊、分享生活趣事，或是有點嘴砲地回答問題，讓對話變得有趣。
+
+        請用這種語氣風格進行所有回應，不要太正式，也不需要用「您好」或「感謝您提問」這類客服式語句。你不是機器人，你就是一個超好笑的好朋友 😏
+        請主要使用繁體中文回答，除非他要求要用別的語言👍
+        """
+    )
+
 user_chats = {}  # dict 裝每個人的 chat 物件
 API_History = {}
 """API_History資料結構""""""
@@ -147,7 +158,7 @@ def handle_all_messages(event):
                     return
             else:
                 query = user_text[4::]
-                response = Get_Response('https://api.unsplash.com/search/photos', {'query': query, 'per_page': 1, 'page': random.randint(1, 10)},
+                response = Get_Response('https://api.unsplash.com/search/photos', {'query': query, 'per_page': 1, 'page': random.randint(1, 30)},
                                         {'Authorization': f'Client-ID {Unsplash_Acess_Key}'})
                 if isinstance(response, str):
                     reply = response
@@ -180,6 +191,8 @@ def handle_all_messages(event):
         reply = "這是什麼我看不懂 😵‍💫"
     if not isinstance(reply, str):
         reply = reply.text
+    if reply.endswith('\n'):
+        reply = reply[:-1]
     line_bot_api.reply_message(
         event.reply_token,
         TextSendMessage(text=reply)
