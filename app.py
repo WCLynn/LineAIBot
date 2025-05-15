@@ -8,10 +8,10 @@ from linebot.models import (
 )
 import google.generativeai as genai
 import random
-# from dotenv import load_dotenv
+from dotenv import load_dotenv
 import os
 
-# load_dotenv()
+load_dotenv()
 LINE_CHANNEL_ACCESS_TOKEN = os.getenv("LINE_CHANNEL_ACCESS_TOKEN")
 LINE_CHANNEL_SECRET = os.getenv("LINE_CHANNEL_SECRET")
 Gemini_API_KEY = os.getenv("Gemini_API_KEY")
@@ -108,8 +108,8 @@ def handle_all_messages(event):
         user_text = msg.text
         # GIF
         if user_text.startswith("GIF:"):
-            if len(user_text) < 7:
-                reply = "搜尋字元不可低於3位😵‍💫"
+            if len(user_text) < 6:
+                reply = "搜尋字元不可低於2位😵‍💫"
                 API_Record(user_id, user_text, reply)
             elif user_text == "GIF:Random":
                 response = Get_Response("https://api.giphy.com/v1/gifs/random", {"api_key": GIPHY_API_KEY})
@@ -132,8 +132,8 @@ def handle_all_messages(event):
                     return  
         # PIC        
         elif user_text.startswith("PIC:"):
-            if len(user_text) < 7:
-                reply = "搜尋字元不可低於3位😵‍💫"
+            if len(user_text) < 6:
+                reply = "搜尋字元不可低於2位😵‍💫"
                 API_Record(user_id, user_text, reply)
             elif user_text == "PIC:Random":
                 response = Get_Response('https://api.unsplash.com/photos/random',{},{'Authorization': f'Client-ID {Unsplash_Acess_Key}'})
