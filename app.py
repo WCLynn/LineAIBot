@@ -95,7 +95,6 @@ system_instruction = """
 """
 
 
-
 model = genai.GenerativeModel(model_name="models/gemini-1.5-flash",system_instruction=system_instruction)
 
 user_chats = {}  # dict 裝每個人的 chat 物件
@@ -205,8 +204,7 @@ def handle_all_messages(event):
         reply = "這是什麼我看不懂 😵‍💫"
     if not isinstance(reply, str):
         reply = reply.text
-    if reply.endswith('\n'):
-        reply = reply[:-1]
+    reply = reply.rstrip()
     line_bot_api.reply_message(
         event.reply_token,
         TextSendMessage(text=reply)
