@@ -3,3 +3,4 @@ Werkzeug==2.2.2
 line-bot-sdk==3.17.1
 gunicorn==20.1.0
 google-generativeai
+requests
