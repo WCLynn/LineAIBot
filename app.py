@@ -8,7 +8,7 @@ from linebot.models import (
 )
 import google.generativeai as genai
 import random
-from dotenv import load_dotenv
+# from dotenv import load_dotenv
 import os
 
 # load_dotenv()
